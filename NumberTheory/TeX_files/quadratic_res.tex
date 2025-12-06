@@ -1,0 +1,66 @@
+\documentclass{article}
+
+\title{Quadratic Residues}
+\author{Nicholas Wendt}
+\date{November 18, 2025}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\begin{document}
+
+\maketitle
+
+\section{Intro}
+Some integer a is a quadratic residue mod n if there exists some integer x such that:
+$$
+x^2 \equiv a\ (mod\ n)
+$$
+
+If no x exists, then a is called a quadratic nonresidue mod n.
+\section{Legendre Symbol}
+\[
+\left( \frac{a}{p} \right) =
+\begin{cases}
+  1 & \text{if } a \text{ is a quadratic residue mod } p, \\[6pt]
+ -1 & \text{if } a \text{ is a nonresidue mod } p, \\[6pt]
+  0 & \text{if } p \mid a.
+\end{cases}
+\]
+\subsection{Euler's Criterion}
+For an odd prime p and integer a not divisible by p,
+\[
+a^{\frac{p-1}{2}} \equiv
+\begin{cases}
+  1 \pmod{p}, & \text{if } a \text{ is a quadratic residue}, \\[6pt]
+ -1 \pmod{p}, & \text{if } a \text{ is a nonresidue.}
+\end{cases}
+\]
+\subsection{Monday Rule}
+\[
+\left( \frac{2}{p} \right) =
+\begin{cases}
+  1, & \text{if } p \equiv 1 \text{ or } 7 \pmod{8}, \\[6pt]
+ -1, & \text{if } p \equiv 3 \text{ or } 5 \pmod{8}.
+\end{cases}
+\]
+
+\section{Quadratic Reciprocity}
+\[
+\textbf{Law of Quadratic Reciprocity:} \quad
+\left( \frac{p}{q} \right)
+\left( \frac{q}{p} \right)
+= (-1)^{\frac{(p-1)(q-1)}{4}},
+\]
+where \(p\) and \(q\) are distinct odd primes. 
+
+\[
+\text{Equivalently,} \quad
+\left( \frac{p}{q} \right) =
+\begin{cases}
+  \left( \frac{q}{p} \right), & \text{if } p \equiv 1 \text{ or } q \equiv 1 \pmod{4}, \\[6pt]
+ -\left( \frac{q}{p} \right), & \text{if } p \equiv q \equiv 3 \pmod{4}.
+\end{cases}
+\]
+
+\end{document}

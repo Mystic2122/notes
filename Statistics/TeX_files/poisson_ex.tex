@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+
+\title{Poisson Process Examples}
+\author{Nicholas Wendt}
+\date{\today}
+
+\begin{document}
+\maketitle
+\section*{Example 1}
+Suppose you are watching an NBA game. You estimate that each team scores 1 field goal every minute on average. You want to know the probability that there are no field goals made during the first 6 minutes of the game. \\
+This is a \textbf{poisson process} with a rate of $\lambda = 1$ and amount of time $t=6$. Let $X$ be a random variable that represents the number of field goals made by a team after $t$ time intervals. \\
+We can model this process like this:
+\begin{align*}
+Prob(X=0,t=6) = \frac{1^0 e^{-6*1}}{0!} 
+	= e^{-6} 
+	\approx 0.00248
+\end{align*}
+Now to get the porbability of both teams not score we just square the probability of one team not scoring.\\
+\\
+\boxed{Final Answer: 0.00000614}
+
+
+\end{document}
