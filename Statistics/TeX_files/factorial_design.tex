@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{graphicx}
+\usepackage{subcaption}
 
 \title{Factorial Experiment Design}
 \author{Nick Wendt}
@@ -13,7 +14,7 @@ The reason you conduct factorial experiments is to see how
 factors impact the response variable, as well as how each variable
 interacts with all combinations of the other variable. This is known 
 as a full factorial experiment. \\ 
-  \\
+
 However, full factorial designs can be very costly and unnecesary 
 when performing experiments on many factors. Statisticians use fractional 
 factorial designs during early stages of experimentation for factor selection.\\  
@@ -54,7 +55,131 @@ You then collect data and observe the following:
     \includegraphics[width=100mm]{images/factorial2level.png}
     \caption{$2^2$ Factorial Design Example}    
 \end{figure}
- 
+
+
+\section*{Interaction Effects}
+Interaction describes how the effect of one factor depends on the level of another factor. For example\\ 
+Factor A = no caffeine, caffeine\\
+Factor B = 4 hours of sleep, 8 hours of sleep
+\\
+\begin{table}[h!]
+\centering
+\begin{tabular}{lcc}
+\hline
+\textbf{Sleep \textbackslash\ Caffeine} & \textbf{No Caffeine} & \textbf{Caffeine} \\
+\hline
+4 hours & 350 ms & 300 ms \\
+8 hours & 250 ms & 240 ms \\
+\hline
+\end{tabular}
+\caption{Reaction time (ms) by sleep duration and caffeine condition.}
+\end{table}
+\\
+In english, when you sleep only 4 hours, caffeine imporves reaction time a lot. 
+But when you sleep 8 hours caffeine only helps a little. So the benefit of caffeine 
+changes depending on sleep level. \\
+Graphically, interaction isshown by non-parallel lines. If the lines are almost parallel, then there is almost no interaction. 
+If the lines are crossing, then there is significant interaction.
+\\
+Here is an example showing a significant interaction.\\
+\begin{table}[h!]
+\centering
+\begin{tabular}{lcc}
+\hline
+\textbf{Experience \textbackslash\ Method} & \textbf{Method A} & \textbf{Method B} \\
+\hline
+Beginners & 70 & 90 \\
+Advanced  & 95 & 80 \\
+\hline
+\end{tabular}
+\caption{Example of a crossing interaction: the effect of teaching method reverses depending on experience.}
+\end{table}
+\\
+\subsection*{Response Surface}
+In $2^2$ factorial design you can model a response surface. The x-axis is factor A, the y-axis is factor B, 
+and the z-axis (height) is the response you get at every (x,y). If this surafce is a plane, it signals no interaction. 
+If the surface is folded, then interaction is present. \\
+
+\begin{figure}[h!]
+\centering
+
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/response_surface.png}
+    \caption{No interaction}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/response_interaction.png}
+    \caption{Interaction}
+\end{subfigure}
+
+\caption{Response surface comparison}
+\end{figure}
+
+
+
+\section*{Effect Levels}
+Factors maybe quantitative or qualitative (categorical).\\
+A common notation for labeling different treatments (effect combinations) is the following:\\
+\begin{table}[h!]
+\centering
+\begin{tabular}{lcc}
+  \hline
+  \textbf{Response (y)} & $x_1$ & $x_2$ \\
+  \hline
+  (1) & $A^{-}$ & $B^{-}$ \\
+  a & $A^{+}$ & $B^{-}$ \\
+  b & $A^{-}$ & $B^{+}$ \\
+  ab & $A^{+}$ & $B^{+}$ \\
+  \hline
+\end{tabular}
+\caption{Treatment levels for $2^2$ factorial design}
+\end{table}
+
+A more common way of coding these variable is using -1 for low levels and 1 for high levels.
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{lcc}
+  \hline
+  \textbf{Response (y)} & $x_1$ & $x_2$ \\
+  \hline
+  (1) & $-1$ & $-1$ \\
+  a & $1$ & $-1$ \\
+  b & $-1$ & $1$ \\
+  ab & $1$ & $1$ \\
+  \hline
+\end{tabular}
+\caption{Treatment levels for $2^2$ factorial design}
+\end{table}
+
+\subsection*{Effect of A and B}
+
+\begin{figure}[h!]
+\centering
+
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/effectA.png}
+    \caption{Effect of A}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/effectB.png}
+    \caption{Effect of B}
+\end{subfigure}
+
+\caption{Response surface comparison}
+\end{figure}
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\textwidth]{images/effectAB.png}
+    \caption{Effect of AB}
+\end{figure}
+
 
 
 \end{document}
