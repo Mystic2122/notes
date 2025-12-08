@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amssymb, amsmath}
+
+\title{Continued Fractions}
+\author{Nick Wendt}
+\date{December 18, 2025}
+
+\begin{document}
+\maketitle
+\section*{Definition}
+A simple continued fraction is an expresion of the form
+$$
+a_0+\frac{1}{a_1+\frac{1}{a_2+\frac{1}{a_3+...}}}
+$$
+Where $a_0 \in \mathbb{Z}$ and $a_1, ...,a_n \in \mathbb{N}$
+\\
+We write a continued fraction compactly as $[a_0;a_1,a_2,a_3,...]$
+\section*{Simple Example}
+Write $\frac{31}{12}$ as a continued fraction
+Step 1: Find the floor of $\frac{31}{12}$
+$$
+\left\lfloor{\frac{31}{12}}\right\rfloor = 2
+$$
+This is your $a_0$\\
+\\
+Step 2: Subtract your original number by the floor calculated in step 1.
+$$
+\frac{31}{12} - 2 = \frac{31}{12} - \frac{24}{12} = \frac{7}{12}
+$$
+This will always give you a number between 0 and 1.\\
+\\
+Step 3: Flip the fraction 
+$$
+\frac{7}{12} \rightarrow \frac{12}{7}
+$$
+Step 4: Repeat steps 1-3 until you get a 1 as the numerator of the fraction in step 2.\\
+\\
+Finishing the example:
+\begin{gather*}
+Floor:\ \left\lfloor{\frac{12}{7}} \right\rfloor = 1 = a_1\\
+Subtract:\ \frac{12}{7} - 1 = \frac{5}{7}\\
+Flip:\ \frac{5}{7} \rightarrow \frac{7}{5}\\
+Repeat\\
+Floor:\  \left\lfloor{\frac{7}{5}}\right\rfloor = 1 = a_2\\
+Subtract:\ \frac{7}{5} - 1 = \frac{2}{5}\\
+Flip:\ \frac{2}{5} \rightarrow \frac{5}{2}\\
+Floor:\ \left\lfloor{\frac{5}{2}}\right\rfloor = 2 = a_3\\
+Subtract:\ \frac{5}{2} - 2 = \frac{1}{2}\\
+Stop
+\end{gather*}
+We stop since 1 is in the numerator of the fraction.\\
+\\
+Now using our $a_i's$, we can write our continued fraction:
+$$
+\frac{31}{12} = 2 + \frac{1}{1+\frac{1}{1+\frac{1}{2+\frac{1}{2}}}}
+$$
+
+\section*{Irrational Example}
+
+\end{document}
