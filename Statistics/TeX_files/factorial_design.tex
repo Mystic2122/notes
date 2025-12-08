@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{graphicx}
 \usepackage{subcaption}
+\usepackage{amsmath, amssymb}
 
 \title{Factorial Experiment Design}
 \author{Nick Wendt}
@@ -194,6 +195,19 @@ $$
 Where n is the number of replicates. Thi difference is that ab, a, b, and (1) now represent that sum of 
 all of our observations at each treatment level. So dividing by n gives us the average.
 
-\section*{}
+\section*{Contrast}
+Contrast is the specific linear combination of treatment means. For example, above we see that the 
+effect of A is $\frac{a+ab-b-(1)}{2}$ for 1 replicate. The contrast of A is:
+\begin{gather*}
+L_A = <1,1,-1,-1>\cdot<a,ab,b,(1)>\\
+or\\
+L_A = \mu_a+\mu_{ab}-\mu_b-\mu_{(1)}
+\end{gather*}
+L is the contrast which is a linear combination of coefficients ($c_i's$) and treatment means ($\mu's$).
+$$
+L = c_1\mu_1+c_2\mu_2+...+c_k\mu_k
+$$
+Such that $\sum_{i=1}^k c_i=0$
+
 
 \end{document}
