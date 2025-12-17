@@ -57,4 +57,31 @@ $$
 
 \section*{Irrational Example}
 
+
+
+\section*{Recurrence Relations}
+The nth convergent approximation of a number is $[a_0; a_1, a_2, ..., a_n] = \frac{p_n}{q_n}$ 
+where $gcd(p_n, q_n) = 1$ \\
+It follows that $a_0 = [a_0] = \frac{p_0}{q_0}$ so $p_0 = a_0$ and $q_0 = 1$\\
+Then $p_1 = a_0 * a_1 + 1$ and $q_1 = a_1$\\
+\\
+The recurrence relations are $p_n = a_n * p_{n-1} + p_{n-2}$ and $q_n = a_n * q_{n-1} + q_{n-2}$
+
+\subsection*{Proof}
+Assume:
+$$
+\frac{p_{n-1}}{q_{n-1}} = \frac{a_{n-1}*p_{n-2} + p_{n-3}}{a_{n-1} * q_{n-2} + q_{n-3}}
+$$
+Then the RHS equals:
+$$
+\frac{(a_{n-1}+\frac{1}{a_n})p_{n-2} + p_{n-3}}{(a_{n-1}+\frac{1}{a_n})q_{n-2} + q_{n-3}}
+$$
+because $[a_0;a_1,a_2,...,a_{n-1},a_n] = [a_0;a_1,a_2,...,a_{n-1}+\frac{1}{a_n}]$ by definition of continued fractions
+now multiply by $\frac{a_n}{a_n}$ and see the recurrence relation appear.
+
+
+\section*{Lagrange's Theorem}
+A real number has a periodic continued fraction expansion $[a_0;a_1,...,a_n,\overline{a_{n+1},...,a_{n+k}}]$ 
+if and only if it ($\alpha$) is a solution of a quadratic equation: $\alpha = r+s\sqrt{m}$ s.t. $r,s\in \mathbb{Q}$ and $m \in \mathbb{Z}_{\geq 2}$ and m is not a square. 
+
 \end{document}
