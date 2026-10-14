@@ -1,0 +1,158 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+
+\begin{document}
+
+\textbf{DSC 210, Fall 2026 --- Homework 1} \hfill Nicholas Wendt (200478549)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Question 1: Property of triangular matrices (20 points)}
+
+Given $U_1$ and $U_2$ are two upper triangular matrices of size $n\times n$, prove that $U_1U_2$ is also an upper triangular matrix. Further, prove by induction that multiplication of $m\,(m>2)$ upper triangular matrices ($U_1, U_2, \dots, U_m$) is also an upper triangular matrix.
+
+\textbf{Solution:}
+\bigskip
+
+Since both $U_1$ and $U_2$ are upper triangular matrices that means entries $a_{ij}=0$ for $i>j$
+in $U_1$ and entries $b_{ij}=0$ for $i>j$ in $U_2$.\\
+Let matrix $C=U_1U_2$. We want to show that entries $c_{ij} = 0$ when $i>j$.\\
+The element
+$$
+c_{ij} = \sum_{k=1}^na_{ik}b_{kj}=a_{i1}b_{1j}+a_{i2}b_{2j}+\cdots+a_{in}b_{nj}
+$$
+To show that every term in this sum is 0, we look at 2 cases.\\
+\textbf{Case 1:} Let $k<i$ , then element $a_{ik}=0$\\
+\textbf{Case 2:} Let $k \geq i$ , then $k \geq i > j$ , so $k > j$. Then element $b_{kj}=0$\\
+So $\forall k\ , \ a_{ik}b_{kj}=0 $
+
+\bigskip
+
+\noindent Therefore $c_{ij} = 0$ for $i>j$ making $C$ an upper triangular matrix. $\square$
+
+\bigskip
+
+\noindent\textbf{Inductive step:} Assume $P_m=U_1U_2 \cdots U_m$ is an upper triangular matrix. \\
+Let $U_{m+1}$ be an upper triangular $n\times n$ matrix. Since
+matrix multiplication is associative,
+
+$$
+P_{m+1} = U_1U_2\cdots U_mU_{m+1} = (U_1U_2\cdots U_m)\,U_{m+1} = P_m\,U_{m+1}.
+$$
+
+\noindent By the inductive hypothesis, $P_m$ is upper triangular, and $U_{m+1}$ is upper triangular by
+definition. By the base case, the product of two upper triangular matrices is upper triangular.
+
+\medskip
+
+\noindent So $P_mU_{m+1}$ is upper triangular. Therefore $P_{m+1}$ is upper triangular.
+
+\bigskip
+
+\noindent\textbf{Conclusion:} By induction, the product $U_1U_2\cdots U_m$ of upper triangular matrices is an upper triangular matrix for all $m \geq 2$. $\square$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section*{Question 2: Matrix operations (20 points)}
+
+Let $\mathbf{B}$ be a $4\times 4$ matrix to which we apply the following 7 operations sequentially and get a final matrix $\mathbf{D}$:
+\begin{enumerate}
+    \item[(i)] triple column 2,
+    \item[(ii)] halve row 4,
+    \item[(iii)] add row 2 to row 1,
+    \item[(iv)] interchange columns 1 and 3,
+    \item[(v)] subtract row 3 from each of the other rows,
+    \item[(vi)] replace column 4 by column 2,
+    \item[(vii)] delete column 1 (so that the column dimension is reduced by 1).
+\end{enumerate}
+\begin{enumerate}
+    \item[(a)] Express each operation (i) to (vii) as a matrix and the final matrix $\mathbf{D}$ as a product of 8 matrices. (10 points)
+    \item[(b)] Write the final result again as a product of $\mathbf{ABC}$, i.e.\ write matrix $\mathbf{D} = \mathbf{ABC}$ and find $\mathbf{A},\mathbf{C}$. (5 points)
+    \item[(c)] Write Python code to verify your answers in parts a and b. Show the answers and code. (5 points) Let
+    \[
+    \mathbf{B} = \begin{bmatrix}
+        2 & 1 & 0 & 3\\
+        0 & 1 & 2 & -1\\
+        1 & 0 & 2 & 1\\
+        0 & 1 & 1 & 2
+    \end{bmatrix}
+    \]
+    Hint: You can use NumPy for matrix operations.
+\end{enumerate}
+
+\textbf{Solution:}
+
+\textbf{(a)}
+
+\textbf{(b)}
+
+\textbf{(c)}
+\begin{verbatim}
+import numpy as np
+\end{verbatim}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section*{Question 3: Matrix properties (20 points)}
+
+Prove that if a matrix $\mathbf{A}$ is triangular (upper or lower) then $\mathbf{A}^{-1}$ is also triangular. Further, use the result to show that if $\mathbf{A}$ is both triangular and orthogonal, then it is diagonal.
+
+\textbf{Solution:}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section*{Question 4: $p$-norm inequalities (20 points)}
+
+Let $\mathbf{x}$ be a real $m$-vector. The vector $p$-norms $\lVert \mathbf{x} \rVert_{p}$ are related by various inequalities, often involving the dimension of the vector, i.e.\ $m$. For parts (a) and (b), prove the inequality and give an example of a nonzero vector $\mathbf{x}$ for which \textit{equality} is satisfied.
+\begin{enumerate}
+    \item[(a)] $\lVert \mathbf{x} \rVert_2 \le \lVert \mathbf{x} \rVert_1$. (7 points)
+    \item[(b)] $\lVert \mathbf{x} \rVert_2 \le \sqrt{m} \cdot \lVert \mathbf{x} \rVert_\infty$. (7 points)
+    \item[(c)] Plot a 2D contour of $\lVert \mathbf{x} \rVert_1 = 1$; on the same chart also highlight regions where $\lVert \mathbf{x}\rVert_2 < 1$, $\lVert \mathbf{x}\rVert_2 = 1$ and $\lVert \mathbf{x}\rVert_2 > 1$. Describe where the contour intersects $\lVert \mathbf{x} \rVert_2 = 1$. (6 points)
+\end{enumerate}
+
+\textbf{Solution:}
+
+\textbf{(a)}
+
+\textbf{(b)}
+
+\textbf{(c)}
+% Save your plot as plot.png in this folder, then uncomment the next line:
+% \includegraphics[width=0.6\textwidth]{plot.png}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section*{Question 5: Basic vector operations (20 points)}
+
+Given two 3-dimensional vectors $\mathbf{a}, \mathbf{b}$, and three matrices $\mathbf{A} \in \mathbb{R}^{3 \times 2}$, $\mathbf{B} \in \mathbb{R}^{2 \times 3}$, $\mathbf{C} \in \mathbb{R}^{3 \times 2}$, and scalars $\beta_1, \beta_2$ with the values below:
+\begin{gather*}
+    \mathbf{a} = \begin{bmatrix} 1 \\ 5 \\ 9 \end{bmatrix},\quad
+    \mathbf{b} = \begin{bmatrix} 2 \\ 6 \\ 10 \end{bmatrix},\quad
+    \mathbf{A} = \begin{bmatrix} 1 & 4 \\ 2 & 5 \\ 3 & 6 \end{bmatrix},\quad
+    \mathbf{B} = \begin{bmatrix} 7 & 8 & 9 \\ 10 & 11 & 12 \end{bmatrix},\quad
+    \mathbf{C} = \begin{bmatrix} 1 & 0 \\ 0 & 0 \\ 0 & 1 \end{bmatrix},\quad
+    \beta_1 = 2,\ \beta_2 = 3
+\end{gather*}
+\begin{enumerate}
+    \item[(a)] Compute the following operations by hand and show your work. If an operation is undefined, state why. (15 points)
+    \begin{enumerate}
+        \item[(i)] Vector operations: $\mathbf{a} + \mathbf{b}, \quad \beta_1 \mathbf{a}, \quad \mathbf{a} \circ \mathbf{b}, \quad \beta_1 \mathbf{a} + \beta_2 \mathbf{b}$, where $\circ$ denotes component-wise multiplication. (3 points)
+        \item[(ii)] Matrix operations: $\beta_1 \mathbf{A}, \quad \mathbf{A} + \mathbf{B}, \quad \mathbf{A} + \mathbf{C}$. (3 points)
+        \item[(iii)] Transpose operations: $(\mathbf{BA})^\top, \quad \mathbf{A}^\top \mathbf{B}^\top, \quad (\mathbf{A}^{\top})^{\top}, \quad (\mathbf{A} + \mathbf{C})^\top$. (3 points)
+        \item[(iv)] Inner products and outer product: $\langle \mathbf{a}, \mathbf{b} \rangle, \ \langle \mathbf{b}, \mathbf{a} \rangle, \ \langle \mathbf{a}, \mathbf{a} \rangle, \ \langle \mathbf{b}, \mathbf{b} \rangle, \ \beta_1 \langle \mathbf{a}, \mathbf{b} \rangle, \ \langle \beta_1 \mathbf{a}, \mathbf{b} \rangle, \ \mathbf{b} \mathbf{a}^\top$. (3 points)
+        \item[(v)] Determinants: $\det(\mathbf{BA}), \quad \det(\mathbf{CB})$. (3 points)
+    \end{enumerate}
+    \item[(b)] Implement all the parts above using Python and show the answers and code. (5 points)
+\end{enumerate}
+
+\textbf{Solution:}
+
+\textbf{(a)}
+
+\textbf{(b)}
+\begin{verbatim}
+import numpy as np
+\end{verbatim}
+
+\end{document}

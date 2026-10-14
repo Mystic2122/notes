@@ -56,5 +56,20 @@ $$
 $$
 
 \section*{Irrational Example}
+Let's calculate the continued fraction for $sqrt{2}$
+
+\begin{enumerate}
+    \item First take the floor of $sqrt{2}$. $\left\lfloor{\sqrt{2}}\right\rfloor = 1$.\\This is our $a_0$.
+    \item Then subtract original number by the floor. $\sqrt{2}-1$
+    \item Then since we can't simplify any further, we just flip here. $\sqrt{2}-1 \rightarrow \frac{1}{\sqrt{2}-1}$
+    \item Then we take the floor of this number. $\left\lfloor \frac{1}{\sqrt{2}-1} \right\rfloor = 2$
+    \item Now subtract again. $\frac{1}{\sqrt{2}-1} - 2$
+    \item 
+    \item Now we multply top and bottom by the conjugate.
+    \begin{align*}
+        \frac{1}{\sqrt{2}-1}\cdot \frac{\sqrt{2}+1}{\sqrt{2}+1} 
+        = \frac{\sqrt{2}+1}{}
+    \end{align*}
+\end{enumerate}
 
 \end{document}
