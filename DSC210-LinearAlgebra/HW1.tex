@@ -85,7 +85,134 @@ Let $\mathbf{B}$ be a $4\times 4$ matrix to which we apply the following 7 opera
 
 \textbf{(a)}
 
+\bigskip
+
+First let's write out the individual operations in matrix from.\\
+Note: row operations must be multiplied on the left of B while column operations are multiplied on the right.
+$$
+(i)=\begin{bmatrix}
+    1 & 0&0&0\\
+    0&3&0&0\\
+    0&0&1&0\\
+    0&0&0&1
+\end{bmatrix},
+(ii) = \begin{bmatrix}
+1&0&0&0\\
+0&1&0&0\\
+0&0&1&0\\
+0&0&0&\frac12
+\end{bmatrix},
+(iii)=\begin{bmatrix}
+1&1&0&0\\
+0&1&0&0\\
+0&0&1&0\\
+0&0&0&1
+\end{bmatrix},
+(iv)=\begin{bmatrix}
+0&0&1&0\\
+0&1&0&0\\
+1&0&0&0\\
+0&0&0&1
+\end{bmatrix}
+$$
+$$
+(v)=\begin{bmatrix}
+1&0&-1&0\\
+0&1&-1&0\\
+0&0&1&0\\
+0&0&-1&1
+\end{bmatrix},
+(vi)=\begin{bmatrix}
+1&0&0&0\\
+0&1&0&1\\
+0&0&1&0\\
+0&0&0&0
+\end{bmatrix},
+(vii)=\begin{bmatrix}
+0&0&0\\
+1&0&0\\
+0&1&0\\
+0&0&1
+\end{bmatrix}
+$$
+Now define matrix $D$:
+$$
+D=(v)(iii)(ii)B(i)(iv)(vi)(vii)
+$$
+
 \textbf{(b)}
+Let $A$ be the product of row operations and let $C$ be the product of column operations.
+$$
+A=(v)(iii)(ii)=\begin{bmatrix}
+1&0&-1&0\\
+0&1&-1&0\\
+0&0&1&0\\
+0&0&-1&1
+\end{bmatrix}
+\begin{bmatrix}
+1&1&0&0\\
+0&1&0&0\\
+0&0&1&0\\
+0&0&0&1
+\end{bmatrix}
+\begin{bmatrix}
+1&0&0&0\\
+0&1&0&0\\
+0&0&1&0\\
+0&0&0&\frac12
+\end{bmatrix}
+$$
+Multiplying right to left we get
+$$
+A=\begin{bmatrix}
+1&0&-1&0\\
+0&1&-1&0\\
+0&0&1&0\\
+0&0&-1&1
+\end{bmatrix}
+\begin{bmatrix}
+1&1&0&0\\
+0&1&0&0\\
+0&0&1&0\\
+0&0&0&\frac12
+\end{bmatrix}
+=
+\begin{bmatrix}
+1&1&-1&0\\
+0&1&-1&0\\
+0&0&1&0\\
+0&0&-1&\frac12
+\end{bmatrix}
+$$
+Calculating $C$
+$$
+C=(i)(iv)(vi)(vii)=
+\begin{bmatrix}
+    1 & 0&0&0\\
+    0&3&0&0\\
+    0&0&1&0\\
+    0&0&0&1
+\end{bmatrix}
+\begin{bmatrix}
+0&0&1&0\\
+0&1&0&0\\
+1&0&0&0\\
+0&0&0&1
+\end{bmatrix}
+\begin{bmatrix}
+1&0&0&0\\
+0&1&0&1\\
+0&0&1&0\\
+0&0&0&0
+\end{bmatrix}
+\begin{bmatrix}
+0&0&0\\
+1&0&0\\
+0&1&0\\
+0&0&1
+\end{bmatrix}
+$$
+
 
 \textbf{(c)}
 \begin{verbatim}
