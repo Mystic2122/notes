@@ -87,7 +87,7 @@ Let $\mathbf{B}$ be a $4\times 4$ matrix to which we apply the following 7 opera
 
 \bigskip
 
-First let's write out the individual operations in matrix from.\\
+First let's write out the individual operations in matrix form.\\
 Note: row operations must be multiplied on the left of B while column operations are multiplied on the right.
 $$
 (i)=\begin{bmatrix}
@@ -212,12 +212,105 @@ C=(i)(iv)(vi)(vii)=
 0&0&1
 \end{bmatrix}
 $$
+$$
+=\begin{bmatrix}
+    1 & 0&0&0\\
+    0&3&0&0\\
+    0&0&1&0\\
+    0&0&0&1
+\end{bmatrix}
+\begin{bmatrix}
+0&0&1&0\\
+0&1&0&0\\
+1&0&0&0\\
+0&0&0&1
+\end{bmatrix}
+\begin{bmatrix}
+0&0&0\\
+1&0&1\\
+0&1&0\\
+0&0&0
+\end{bmatrix}
+$$
+$$
+=\begin{bmatrix}
+    1 & 0&0&0\\
+    0&3&0&0\\
+    0&0&1&0\\
+    0&0&0&1
+\end{bmatrix}
+\begin{bmatrix}
+0&1&0\\
+1&0&1\\
+0&0&0\\
+0&0&0
+\end{bmatrix}
+$$
+$$
+C=\begin{bmatrix}
+0&1&0\\
+3&0&3\\
+0&0&0\\
+0&0&0
+\end{bmatrix}
+$$
+Now we can write matrix $D$ as the product of 3 matrices.
+$$D=ABC=
+\begin{bmatrix}
+1&1&-1&0\\
+0&1&-1&0\\
+0&0&1&0\\
+0&0&-1&\frac12
+\end{bmatrix}
+\begin{bmatrix}
+        2 & 1 & 0 & 3\\
+        0 & 1 & 2 & -1\\
+        1 & 0 & 2 & 1\\
+        0 & 1 & 1 & 2
+    \end{bmatrix}
+\begin{bmatrix}
+0&1&0\\
+3&0&3\\
+0&0&0\\
+0&0&0
+\end{bmatrix}
+$$
+
 
 
 \textbf{(c)}
 \begin{verbatim}
 import numpy as np
+B = np.array([[2,1,0,3],[0,1,2,-1],[1,0,2,1],[0,1,1,2]])
+
+i = np.array([[1,0,0,0],[0,3,0,0],[0,0,1,0],[0,0,0,1]])
+ii = np.array([[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,0.5]])
+iii = np.array([[1,1,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]])
+iv = np.array([[0,0,1,0],[0,1,0,0],[1,0,0,0],[0,0,0,1]])
+v = np.array([[1,0,-1,0],[0,1,-1,0],[0,0,1,0],[0,0,-1,1]])
+vi = np.array([[1,0,0,0],[0,1,0,1],[0,0,1,0],[0,0,0,0]])
+vii = np.array([[0,0,0],[1,0,0],[0,1,0],[0,0,1]])
+
+# part a
+D = v @ iii @ ii @ B @ i @ iv @ vi @ vii
+print("D =\n", D)
+
+# part b
+A = v @ iii @ ii
+C = i @ iv @ vi @ vii
+print("A =\n", A)
+print("C =\n", C)
+print("ABC =\n", A @ B @ C)
 \end{verbatim}
+We see that
+$$
+D=\begin{bmatrix}
+6&1&6\\
+3&-1&3\\
+0&1&0\\
+\frac32&-1&\frac32
+\end{bmatrix}
+$$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
@@ -225,7 +318,34 @@ import numpy as np
 
 Prove that if a matrix $\mathbf{A}$ is triangular (upper or lower) then $\mathbf{A}^{-1}$ is also triangular. Further, use the result to show that if $\mathbf{A}$ is both triangular and orthogonal, then it is diagonal.
 
-\textbf{Solution:}
+\textbf{Solution:}\\
+Let $A$ be an invertible upper triangular matrix. \\
+Since $\det A$ is the product of the diagonal entries and $\det A \neq 0$, every diagonal entry $a_{ii}$ is nonzero.
+\medskip
+
+\noindent The $j$-th column $\mathbf{x}$ of $A^{-1}$ satisfies $A\mathbf{x} = \mathbf{e}_j$ since $AA^{-1}=I$ where $e_j$ is the $j$-th column of $I$. 
+Solve this system by back substitution, starting from the bottom row.
+\smallskip
+
+Every entry of $\mathbf{e}_j$ below row $j$ is $0$.
+
+Let $\mathbf{x}$ be the $j$-th column of $A^{-1}$, so that $A\mathbf{x} = \mathbf{e}_j$. Then each entry $x_k$ of $\mathbf{x}$ is the $(k,j)$ entry of $A^{-1}$, and we want to show $x_k = 0$ for every $k > j$.
+\bigskip
+
+If $j = n$, this entry is on the diagonal and there is nothing to show. So assume $j < n$. Every entry of $\mathbf{e}_j$ below row $j$ is $0$. The last row of the system $A\mathbf{x} = \mathbf{e}_j$ reads $a_{nn}x_n = 0$, so $x_n = 0$.
+Thus every column of $A^{-1}$ has zeros below the diagonal, so $A^{-1}$ is upper triangular.
+
+If $A$ is lower triangular, then $A^T$ is upper triangular, so $(A^T)^{-1} = (A^{-1})^T$ is upper triangular. Therefore $A^{-1}$ is lower triangular. $\blacksquare$
+
+\bigskip
+
+\textbf{Part 2.} Suppose $A$ is upper triangular and orthogonal; the lower triangular case is the same. Orthogonality gives $A^TA = I$, so $A^{-1} = A^T$.
+
+By Part 1, $A^{-1}$ is upper triangular. But $A^T$ is lower triangular, because it is the transpose of an upper triangular matrix. Since $A^{-1} = A^T$, this matrix is both upper and lower triangular, so it is diagonal.
+
+Hence $A^T$ is diagonal, and therefore $A$ is diagonal. $\blacksquare$
+\bigskip
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
