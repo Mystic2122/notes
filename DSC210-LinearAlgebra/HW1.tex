@@ -29,7 +29,7 @@ So $\forall k\ , \ a_{ik}b_{kj}=0 $
 
 \bigskip
 
-\noindent Therefore $c_{ij} = 0$ for $i>j$ making $C$ an upper triangular matrix. $\square$
+\noindent Therefore $c_{ij} = 0$ for $i>j$ making $C$ an upper triangular matrix.
 
 \bigskip
 
@@ -50,7 +50,7 @@ definition. By the base case, the product of two upper triangular matrices is up
 
 \bigskip
 
-\noindent\textbf{Conclusion:} By induction, the product $U_1U_2\cdots U_m$ of upper triangular matrices is an upper triangular matrix for all $m \geq 2$. $\square$
+\noindent\textbf{Conclusion:} By induction, the product $U_1U_2\cdots U_m$ of upper triangular matrices is an upper triangular matrix for all $m \geq 2$. $\blacksquare$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
@@ -323,7 +323,7 @@ Let $A$ be an invertible upper triangular matrix. \\
 Since $\det A$ is the product of the diagonal entries and $\det A \neq 0$, every diagonal entry $a_{ii}$ is nonzero.
 \medskip
 
-\noindent The $j$-th column $\mathbf{x}$ of $A^{-1}$ satisfies $A\mathbf{x} = \mathbf{e}_j$ since $AA^{-1}=I$ where $e_j$ is the $j$-th column of $I$. 
+\noindent The $j$-th column, $\mathbf{x}$, of $A^{-1}$ satisfies $A\mathbf{x} = \mathbf{e}_j$ since $AA^{-1}=I$ where $e_j$ is the $j$-th column of $I$. 
 Solve this system by back substitution, starting from the bottom row.
 \smallskip
 
@@ -332,10 +332,12 @@ Every entry of $\mathbf{e}_j$ below row $j$ is $0$.
 Let $\mathbf{x}$ be the $j$-th column of $A^{-1}$, so that $A\mathbf{x} = \mathbf{e}_j$. Then each entry $x_k$ of $\mathbf{x}$ is the $(k,j)$ entry of $A^{-1}$, and we want to show $x_k = 0$ for every $k > j$.
 \bigskip
 
-If $j = n$, this entry is on the diagonal and there is nothing to show. So assume $j < n$. Every entry of $\mathbf{e}_j$ below row $j$ is $0$. The last row of the system $A\mathbf{x} = \mathbf{e}_j$ reads $a_{nn}x_n = 0$, so $x_n = 0$.
+Assume $j < n$. Every entry of $\mathbf{e}_j$ below row $j$ is $0$. The last row of the system $A\mathbf{x} = \mathbf{e}_j$ reads $a_{nn}x_n = 0$
+Since $a_{nn} \neq 0$, $x_n = 0$.
 Thus every column of $A^{-1}$ has zeros below the diagonal, so $A^{-1}$ is upper triangular.
 
-If $A$ is lower triangular, then $A^T$ is upper triangular, so $(A^T)^{-1} = (A^{-1})^T$ is upper triangular. Therefore $A^{-1}$ is lower triangular. $\blacksquare$
+If $A$ is lower triangular, then $A^T$ is upper triangular, so $(A^T)^{-1} = (A^{-1})^T$ is upper triangular. 
+Therefore $A^{-1}$ is lower triangular. $\blacksquare$
 
 \bigskip
 
@@ -361,9 +363,72 @@ Let $\mathbf{x}$ be a real $m$-vector. The vector $p$-norms $\lVert \mathbf{x} \
 \textbf{Solution:}
 
 \textbf{(a)}
+Start by taking the square of the 1-norm.
+$$
+\Vert \textbf{x} \Vert_1^2=(|x_1|+|x_2|+ \cdots + |x_m|)^2=\sum_{i=1}^m|x_i|^2+\sum_{i\neq j}|x_i||x_j|
+$$
+The first sum is exactly $\Vert \textbf{x} \Vert_2^2$ and every $|x_i||x_j| \geq 0$. So we get
+$$
+\Vert \textbf{x} \Vert_1^2 \geq \Vert \textbf{x} \Vert_2^2
+$$
+Both norms are nonnegative so we can safely take the square root without the inequality changing.
+Therefore
+$$
+\lVert \mathbf{x} \rVert_2 \le \lVert \mathbf{x} \rVert_1 \quad \blacksquare
+$$
+Example: One nonzero entry with all other entries being 0.\\
+Let
+$$
+\textbf{x}=\begin{bmatrix}
+    0\\-7\\0\\\vdots\\ 0
+\end{bmatrix}
+$$
+Then
+$$
+\lVert \mathbf{x} \rVert_2=\sqrt{0^2-7^2+0^2+\cdots+0^2}=7
+$$
+and
+$$
+\lVert \mathbf{x} \rVert_1=|0|+|-7|+|0|+\cdots+|0|=7
+$$
 
 \textbf{(b)}
-
+Recall that $\Vert \textbf{x} \Vert_{\infty}=max(|x_1|,|x_2|,...,|x_m|)$.\\
+Then each entry satisfies $|x_i|\leq \Vert \textbf{x} \Vert_{\infty}$.
+And then each $x_i^2\leq \Vert \textbf{x} \Vert_{\infty}^2$.
+There are $m\ x_i's$ so we sum both sides of the inequality.
+$$
+x_1^2+x_2^2+\cdots +x_m^2\leq \Vert \textbf{x} \Vert_{\infty}^2 +\Vert \textbf{x} \Vert_{\infty}^2+\cdots +
+\Vert \textbf{x} \Vert_{\infty}^2=m \Vert \textbf{x} \Vert_{\infty}^2
+$$
+We see the left side
+$$
+x_1^2+x_2^2+\cdots +x_m^2=\Vert \textbf{x} \Vert_2^2
+$$
+So we get
+$$
+\Vert \textbf{x} \Vert_2^2 \leq m \Vert \textbf{x} \Vert_{\infty}^2
+$$
+Since both sides are nonnegative, taking the square root gives
+$$
+\Vert \textbf{x} \Vert_2 \leq \sqrt{m} \Vert \textbf{x} \Vert_{\infty} \quad \blacksquare
+$$
+Example: All elements in $\textbf{x}$ are nonzero and have the same absolute value.\\
+Let
+$$
+\textbf{x}=\begin{bmatrix}
+    2\\2\\ \vdots\\2
+\end{bmatrix}
+$$
+Then
+$$
+\Vert \textbf{x} \Vert_2=\sqrt{2^2+2^2+\cdots + 2^2}=\sqrt{4+4+\cdots +4}=\sqrt{4m}=2\sqrt{m}
+$$
+and 
+$$
+\Vert \textbf{x} \Vert_{\infty}=max(2,2,...,2)=2 \rightarrow 2\sqrt{m}
+$$
+\bigskip
 \textbf{(c)}
 % Save your plot as plot.png in this folder, then uncomment the next line:
 % \includegraphics[width=0.6\textwidth]{plot.png}
