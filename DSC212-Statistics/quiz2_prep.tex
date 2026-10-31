@@ -1,0 +1,314 @@
+\documentclass{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1.5em}
+
+\title{DSC 212 - Quiz 2 Prep}
+\author{Nick Wendt}
+\date{October 23, 2026}
+
+\begin{document}
+\maketitle
+
+\section*{Common Distributions}
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\small
+\begin{tabular}{lllll}
+\multicolumn{5}{c}{\textbf{Table 1: Special Discrete Distributions}} \\[0.5em]
+\toprule
+Notation and Parameters & Discrete pdf $f(x)$ & Mean & Variance & MGF $M_X(t)$ \\
+\midrule
+\textbf{Bernoulli} & & & & \\
+\quad $X \sim \text{Ber}(p)$ & $p^x q^{1-x}$ & $p$ & $pq$ & $pe^t + q$ \\
+\quad $0 < p < 1$ & $x = 0, 1$ & & & \\
+\quad $q = 1 - p$ & & & & \\
+\midrule
+\textbf{Binomial} & & & & \\
+\quad $X \sim \text{Bin}(n, p)$ & $\binom{n}{x} p^x q^{n-x}$ & $np$ & $npq$ & $(pe^t + q)^n$ \\
+\quad $0 < p < 1$ & $x = 0, 1, \dots, n$ & & & \\
+\quad $q = 1 - p$ & & & & \\
+\midrule
+\textbf{Hypergeometric} & & & & \\
+\quad $X \sim \text{Hyp}(n, r, N)$ & $\frac{\binom{r}{x}\binom{N-r}{n-x}}{\binom{N}{n}}$ & $n\frac{r}{N}$ & $n\frac{r}{N}\left(1 - \frac{r}{N}\right)\left(\frac{N-n}{N-1}\right)$ & Not tractable \\
+\quad $n = 1, 2, \dots, N$ & $\max(0, r+n-N) \le x \le \min(r, n)$ & & & \\
+\quad $r = 0, 1, \dots, N$ & & & & \\
+\midrule
+\textbf{Geometric} & & & & \\
+\quad $X \sim \text{Geo}(p)$ & $pq^{x-1}$ & $\frac{1}{p}$ & $\frac{q}{p^2}$ & $\frac{pe^t}{1 - qe^t}$ \\
+\quad $0 < p < 1$ & $x = 1, 2, \dots$ & & & \\
+\quad $q = 1 - p$ & & & & \\
+\midrule
+\textbf{Negative Binomial} & & & & \\
+\quad $X \sim \text{NB}(r, p)$ & $\binom{x-1}{r-1} p^r q^{x-r}$ & $\frac{r}{p}$ & $\frac{rq}{p^2}$ & $\left(\frac{pe^t}{1 - qe^t}\right)^r$ \\
+\quad $0 < p < 1$ & $x = r, r+1, \dots$ & & & \\
+\quad $r = 1, 2, \dots$ & & & & \\
+\midrule
+\textbf{Poisson} & & & & \\
+\quad $X \sim \text{Poi}(\lambda)$ & $\frac{e^{-\lambda}\lambda^x}{x!}$ & $\lambda$ & $\lambda$ & $e^{\lambda(e^t - 1)}$ \\
+\quad $\lambda > 0$ & $x = 0, 1, \dots$ & & & \\
+\midrule
+\textbf{Discrete Uniform} & & & & \\
+\quad $X \sim \text{DU}(N)$ & $\frac{1}{N}$ & $\frac{N+1}{2}$ & $\frac{N^2 - 1}{12}$ & $\frac{1}{N}\frac{e^t - e^{(N+1)t}}{1 - e^t}$ \\
+\quad $N = 1, 2, \dots$ & $x = 1, 2, \dots, N$ & & & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\small
+\begin{tabular}{lllll}
+\multicolumn{5}{c}{\textbf{Table 2: Special Continuous Distributions}} \\[0.5em]
+\toprule
+Notation and Parameters & Continuous pdf $f(x)$ & Mean & Variance & MGF $M_X(t)$ \\
+\midrule
+\textbf{Uniform} & & & & \\
+\quad $X \sim \text{U}(a, b)$ & $\frac{1}{b-a}$ & $\frac{a+b}{2}$ & $\frac{(b-a)^2}{12}$ & $\frac{e^{bt} - e^{at}}{(b-a)t}$ \\
+\quad $a < b$ & $a < x < b$ & & & \\
+\midrule
+\textbf{Normal} & & & & \\
+\quad $X \sim \text{N}(\mu, \sigma^2)$ & $\frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{1}{2\sigma^2}(x-\mu)^2}$ & $\mu$ & $\sigma^2$ & $e^{\mu t + \sigma^2 t^2/2}$ \\
+\quad $-\infty < \mu < \infty$ & $-\infty < x < \infty$ & & & \\
+\quad $\sigma^2 > 0$ & & & & \\
+\midrule
+\textbf{Gamma} & & & & \\
+\quad $X \sim \text{Gam}(r, \lambda)$ & $\frac{\lambda^r}{\Gamma(r)} x^{r-1} e^{-\lambda x}$ & $\frac{r}{\lambda}$ & $\frac{r}{\lambda^2}$ & $\left(\frac{1}{1 - \frac{t}{\lambda}}\right)^r$ \\
+\quad $\lambda > 0$ & $x > 0$ & & & \\
+\quad $r > 0$ & & & & \\
+\midrule
+\textbf{Exponential} & & & & \\
+\quad $X \sim \text{Exp}(\lambda)$ & $\lambda e^{-\lambda x}$ & $\frac{1}{\lambda}$ & $\frac{1}{\lambda^2}$ & $\frac{1}{1 - \frac{t}{\lambda}}$ \\
+\quad $\lambda > 0$ & $x > 0$ & & & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\newpage
+\section*{Key Formulas}
+\textbf{Valid joint pdf / pmf.} $f(x, y) \ge 0$ everywhere, and it sums or integrates to 1 over its support:
+\[
+\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x, y) \, dx \, dy = 1
+\qquad \text{or} \qquad
+\sum_x \sum_y p(x, y) = 1.
+\]
+
+\textbf{Probability of a region.} For a region $A$ in the $xy$-plane,
+\[
+P\big((X, Y) \in A\big) = \iint_A f(x, y) \, dx \, dy.
+\]
+
+\textbf{Marginals.} Integrate or sum out the other variable:
+\[
+f_X(x) = \int_{-\infty}^{\infty} f(x, y) \, dy, \qquad
+f_Y(y) = \int_{-\infty}^{\infty} f(x, y) \, dx, \qquad
+p_X(x) = \sum_y p(x, y), \qquad
+p_Y(y) = \sum_x p(x, y).
+\]
+
+\textbf{Conditionals.} The joint divided by the marginal of the variable you condition on:
+\[
+f_{Y \mid X}(y \mid x) = \frac{f(x, y)}{f_X(x)}, \qquad
+f_{X \mid Y}(x \mid y) = \frac{f(x, y)}{f_Y(y)}, \qquad f_X(x) > 0, \ f_Y(y) > 0.
+\]
+
+\textbf{Multiplication rule.} Rearranging the conditional:
+\[
+f(x, y) = f_{Y \mid X}(y \mid x) \, f_X(x) = f_{X \mid Y}(x \mid y) \, f_Y(y).
+\]
+
+\textbf{Independence.} $X$ and $Y$ are independent if and only if the joint pdf equals the product of its marginals for \emph{every} pair $(x, y)$:
+\[
+f(x, y) = f_X(x) \, f_Y(y) \qquad \text{or} \qquad p(x, y) = p_X(x) \, p_Y(y).
+\]
+Equivalently, $f_{Y \mid X}(y \mid x) = f_Y(y)$: knowing $X$ tells you nothing about $Y$.
+
+\textbf{Expectation.} For any function $g$,
+\[
+E[g(X, Y)] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x, y) \, f(x, y) \, dx \, dy.
+\]
+If $X$ and $Y$ are independent, then $E[XY] = E[X] \, E[Y]$.
+
+
+\newpage
+\section*{Practice Problems}
+1. Let $X$ represent the number of heads you observe from tossing a fair coin 100 times. 
+What distribution does $X$ follow? Calculate the probability of getting exactly 50 heads from the 100 tosses. 
+
+1a. Now repeat the experiment, tossing the same coin until you observe 50 heads, and let $X$ represent the number of tosses it takes.
+What distribution does $X$ follow? Calculate the probability that the 50th head occurs on exactly the 100th toss.
+
+2. Let $X$ and $Y$ be continuous random variables with joint density
+\[
+f(x, y) = \begin{cases} c\, x y^2, & 0 \le x \le 2,\ 0 \le y \le 3 \\ 0, & \text{otherwise.} \end{cases}
+\]
+Find the value of the constant $c$ that makes $f(x, y)$ a valid joint pdf.
+
+3. Let $X$ and $Y$ be continuous random variables with joint density
+\[
+f(x, y) = \begin{cases} x + y, & 0 \le x \le 1,\ 0 \le y \le 1 \\ 0, & \text{otherwise.} \end{cases}
+\]
+Find the conditional density $f_{Y \mid X}(y \mid x)$, then use it to calculate $P\left(Y \le \frac{1}{2} \,\middle|\, X = \frac{1}{2}\right)$.
+
+4. Let $X$ and $Y$ be discrete random variables with the joint pmf $p(x, y)$ given in the table below.
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{c|cc}
+$p(x, y)$ & $Y = 0$ & $Y = 1$ \\
+\hline
+$X = 0$ & 0.08 & 0.12 \\
+$X = 1$ & 0.20 & 0.30 \\
+$X = 2$ & 0.12 & 0.18 \\
+\end{tabular}
+\end{center}
+Find the marginal pmfs $p_X(x)$ and $p_Y(y)$. Are $X$ and $Y$ independent?
+
+5. Let $X$ and $Y$ be continuous random variables with joint density
+\[
+f(x, y) = \begin{cases} \frac{3}{2}x + \frac{1}{2}y, & 0 \le x \le 1,\ 0 \le y \le 1 \\ 0, & \text{otherwise.} \end{cases}
+\]
+Calculate $E[X]$, $E[Y]$, and $E[XY]$. Is $E[XY] = E[X] \, E[Y]$?
+
+\newpage
+\section*{Answers}
+1. Each toss is an independent Bernoulli trial with success (heads) probability $p = \frac{1}{2}$,
+and $X$ counts the successes in a fixed number $n = 100$ of trials, so $X \sim \text{Bin}(n = 100,\ p = \frac{1}{2})$ with
+\[
+P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}, \qquad k = 0, 1, \dots, n.
+\]
+Plugging in $k = 50$:
+\begin{align*}
+P(X = 50) &= \binom{100}{50} \left(\tfrac{1}{2}\right)^{50} \left(\tfrac{1}{2}\right)^{50} \\
+&= \binom{100}{50} \left(\tfrac{1}{2}\right)^{100} \\
+&\approx 0.0796
+\end{align*}
+
+1a. Now the number of successes is fixed at $r = 50$ and $X$ counts the trials needed to reach them,
+so $X \sim \text{NB}(r = 50,\ p = \frac{1}{2})$ with
+\[
+P(X = k) = \binom{k-1}{r-1} p^r (1-p)^{k-r}, \qquad k = r, r+1, \dots
+\]
+For the 50th head to land on exactly the 100th toss, the first 99 tosses must contain exactly 49 heads,
+and the 100th toss must be a head. Plugging in $k = 100$:
+\begin{align*}
+P(X = 100) &= \binom{99}{49} \left(\tfrac{1}{2}\right)^{50} \left(\tfrac{1}{2}\right)^{50} \\
+&= \binom{99}{49} \left(\tfrac{1}{2}\right)^{100} \\
+&\approx 0.0398
+\end{align*}
+This is exactly half of the answer to 1, since $\binom{99}{49} = \frac{50}{100}\binom{100}{50}$:
+of all the sequences with 50 heads in 100 tosses, exactly half end in a head.
+
+2. For $f(x, y)$ to be a valid joint pdf, it must be nonnegative and integrate to 1 over its support:
+\[
+\int_0^3 \int_0^2 c\, x y^2 \, dx \, dy = 1.
+\]
+Evaluating the inner integral with respect to $x$ (treating $y$ as a constant):
+\[
+\int_0^2 c\, x y^2 \, dx = c\, y^2 \left[ \frac{x^2}{2} \right]_0^2 = 2c\, y^2.
+\]
+Then the outer integral with respect to $y$:
+\[
+\int_0^3 2c\, y^2 \, dy = 2c \left[ \frac{y^3}{3} \right]_0^3 = 2c \cdot 9 = 18c.
+\]
+Setting $18c = 1$ gives
+\[
+c = \frac{1}{18}.
+\]
+Since $x y^2 \ge 0$ on the support, $f(x, y) \ge 0$ for this $c$, so $f$ is a valid joint pdf.
+
+3. The conditional density is the joint density divided by the marginal of the variable we condition on:
+\[
+f_{Y \mid X}(y \mid x) = \frac{f(x, y)}{f_X(x)}.
+\]
+First find the marginal of $X$ by integrating out $y$:
+\[
+f_X(x) = \int_0^1 (x + y) \, dy = \left[ xy + \frac{y^2}{2} \right]_0^1 = x + \frac{1}{2}, \qquad 0 \le x \le 1.
+\]
+Dividing the joint by the marginal:
+\[
+f_{Y \mid X}(y \mid x) = \frac{x + y}{x + \frac{1}{2}}, \qquad 0 \le y \le 1.
+\]
+At $x = \frac{1}{2}$ the denominator is $\frac{1}{2} + \frac{1}{2} = 1$, so $f_{Y \mid X}\left(y \mid \tfrac{1}{2}\right) = \frac{1}{2} + y$. Then
+\[
+P\left(Y \le \tfrac{1}{2} \,\middle|\, X = \tfrac{1}{2}\right) = \int_0^{1/2} \left( \frac{1}{2} + y \right) dy
+= \left[ \frac{y}{2} + \frac{y^2}{2} \right]_0^{1/2} = \frac{1}{4} + \frac{1}{8} = \frac{3}{8}.
+\]
+
+4. Find each marginal by summing the joint pmf across a row (for $X$) or down a column (for $Y$):
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{c|cc|c}
+$p(x, y)$ & $Y = 0$ & $Y = 1$ & $p_X(x)$ \\
+\hline
+$X = 0$ & 0.08 & 0.12 & 0.20 \\
+$X = 1$ & 0.20 & 0.30 & 0.50 \\
+$X = 2$ & 0.12 & 0.18 & 0.30 \\
+\hline
+$p_Y(y)$ & 0.40 & 0.60 & 1 \\
+\end{tabular}
+\end{center}
+So $p_X(0) = 0.2$, $p_X(1) = 0.5$, $p_X(2) = 0.3$ and $p_Y(0) = 0.4$, $p_Y(1) = 0.6$.
+
+$X$ and $Y$ are independent if $p(x, y) = p_X(x) \, p_Y(y)$ for every cell. Checking all six:
+\begin{align*}
+p_X(0) \, p_Y(0) &= (0.2)(0.4) = 0.08 = p(0, 0), & p_X(0) \, p_Y(1) &= (0.2)(0.6) = 0.12 = p(0, 1), \\
+p_X(1) \, p_Y(0) &= (0.5)(0.4) = 0.20 = p(1, 0), & p_X(1) \, p_Y(1) &= (0.5)(0.6) = 0.30 = p(1, 1), \\
+p_X(2) \, p_Y(0) &= (0.3)(0.4) = 0.12 = p(2, 0), & p_X(2) \, p_Y(1) &= (0.3)(0.6) = 0.18 = p(2, 1).
+\end{align*}
+Every cell matches, so $X$ and $Y$ are independent.
+Equivalently, each row of the table is proportional to $(0.4, 0.6)$, so the conditional distribution of $Y$ given $X = x$ is the same for every $x$.
+\newpage
+5. For $E[X]$:
+\[
+E[X] = \int_0^1 \int_0^1 x \left( \frac{3}{2}x + \frac{1}{2}y \right) dy \, dx = \int_0^1 \int_0^1 \left( \frac{3}{2}x^2 + \frac{1}{2}xy \right) dy \, dx.
+\]
+Inner integral with respect to $y$:
+\[
+\int_0^1 \left( \frac{3}{2}x^2 + \frac{1}{2}xy \right) dy = \left[ \frac{3}{2}x^2 y + \frac{1}{4}x y^2 \right]_0^1 = \frac{3}{2}x^2 + \frac{1}{4}x.
+\]
+Outer integral with respect to $x$:
+\[
+E[X] = \int_0^1 \left( \frac{3}{2}x^2 + \frac{1}{4}x \right) dx = \left[ \frac{1}{2}x^3 + \frac{1}{8}x^2 \right]_0^1 = \frac{1}{2} + \frac{1}{8} = \frac{5}{8}.
+\]
+
+For $E[Y]$:
+\[
+E[Y] = \int_0^1 \int_0^1 y \left( \frac{3}{2}x + \frac{1}{2}y \right) dx \, dy = \int_0^1 \int_0^1 \left( \frac{3}{2}xy + \frac{1}{2}y^2 \right) dx \, dy.
+\]
+Inner integral with respect to $x$:
+\[
+\int_0^1 \left( \frac{3}{2}xy + \frac{1}{2}y^2 \right) dx = \left[ \frac{3}{4}x^2 y + \frac{1}{2}x y^2 \right]_0^1 = \frac{3}{4}y + \frac{1}{2}y^2.
+\]
+Outer integral with respect to $y$:
+\[
+E[Y] = \int_0^1 \left( \frac{3}{4}y + \frac{1}{2}y^2 \right) dy = \left[ \frac{3}{8}y^2 + \frac{1}{6}y^3 \right]_0^1 = \frac{3}{8} + \frac{1}{6} = \frac{13}{24}.
+\]
+
+For $E[XY]$:
+\[
+E[XY] = \int_0^1 \int_0^1 xy \left( \frac{3}{2}x + \frac{1}{2}y \right) dx \, dy = \int_0^1 \int_0^1 \left( \frac{3}{2}x^2 y + \frac{1}{2}x y^2 \right) dx \, dy.
+\]
+Inner integral with respect to $x$:
+\[
+\int_0^1 \left( \frac{3}{2}x^2 y + \frac{1}{2}x y^2 \right) dx = \left[ \frac{1}{2}x^3 y + \frac{1}{4}x^2 y^2 \right]_0^1 = \frac{1}{2}y + \frac{1}{4}y^2.
+\]
+Outer integral with respect to $y$:
+\[
+E[XY] = \int_0^1 \left( \frac{1}{2}y + \frac{1}{4}y^2 \right) dy = \left[ \frac{1}{4}y^2 + \frac{1}{12}y^3 \right]_0^1 = \frac{1}{4} + \frac{1}{12} = \frac{1}{3}.
+\]
+Comparing with the product of the means:
+\[
+E[X] \, E[Y] = \frac{5}{8} \cdot \frac{13}{24} = \frac{65}{192} \ne \frac{64}{192} = \frac{1}{3} = E[XY].
+\]
+So $E[XY] \ne E[X] \, E[Y]$, which means $X$ and $Y$ are \emph{not} independent.
+This is the contrapositive of the direction that always holds:
+\[
+X, Y \text{ independent} \implies E[XY] = E[X] \, E[Y],
+\qquad \text{so} \qquad
+E[XY] \ne E[X] \, E[Y] \implies X, Y \text{ not independent}.
+\]
+
+\textbf{Note:} $E[XY] = E[X] \, E[Y]$ on its own does not prove independence.
+\end{document}

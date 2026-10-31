@@ -1,0 +1,194 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+
+% augmented matrix: \begin{amatrix}{3} ... \end{amatrix} puts a bar after column 3
+\newenvironment{amatrix}[1]{\left[\begin{array}{*{#1}{r}|r}}{\end{array}\right]}
+
+\begin{document}
+
+\textbf{DSC 210, Fall 2026 --- Homework 2} \hfill Nicholas Wendt (200478549)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Question 1: Gauss elimination (20 points)}
+
+Use Gauss elimination to solve the following equations for $\mathbf{x} = \begin{bmatrix} x_1 & x_2 & x_3 \end{bmatrix}^\top$:
+\begin{align*}
+    x_1 + 5x_2 + 3x_3 &= 1\\
+    2x_1 + 4x_2 - 3x_3 &= -1\\
+    -2x_1 + 2x_2 + 3x_3 &= -5
+\end{align*}
+
+\textbf{Solution:} First set up an augmented matrix
+$$
+\begin{amatrix}{3}
+    1&5&3&1\\
+    2&4&-3&-1\\
+    -2&2&3&-5
+\end{amatrix}
+$$
+Now solve the system $Ax=b$ by row reducing the matrix.\\
+Apply the row operations $2r_1-r_2 \rightarrow r_2$ and $2r_1+r_3 \rightarrow r_3$
+$$
+\begin{amatrix}{3}
+    1&5&3&1\\
+    0&6&9&3\\
+    0&12&9&-3
+\end{amatrix}
+$$
+Now use row 2's pivot column $2r_2-r_3 \rightarrow r_3$
+$$
+\begin{amatrix}{3}
+    1&5&3&1\\
+    0&6&9&3\\
+    0&0&9&9
+\end{amatrix}
+$$
+Now use back substitution to solve for $\mathbf{x}$
+Starting with the last row we get the equation $9x_3=9$ so $x_3=1$.\\
+Now the second row gives us the equation $6x_2+9x_3 = 3 \rightarrow 6x_2+9=3$. So we see $x_2 = -1$.\\
+Finally, the first equation gives us $1x_1+5x_2+3x_3 = 1 \rightarrow x_1-5+3=1$. So we see $x_1 = 3$.
+$$
+\mathbf{x} = \begin{bmatrix}
+    x_1&x_2&x_3
+\end{bmatrix}^\top=\begin{bmatrix}
+    3&-1&1
+\end{bmatrix}
+$$
+\bigskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section*{Question 2: LU decomposition (20 points)}
+
+Perform LU decomposition for the matrix corresponding to the equations in \textbf{Question 1}. Using the matrices $L$ and $U$, do forward and backward substitution to solve for $\mathbf{x}$. Match your solution with that of \textbf{Question 1}.
+
+\textbf{Solution:}
+$$
+A=\begin{bmatrix}
+    1&5&3\\
+    2&4&-3\\
+    -2&2&3
+\end{bmatrix}
+$$
+We can factor $A$ into a lower triangular matrix ($L$) and an upper triagular matrix ($U$) such that $A=LU$\\
+We row reduce $A$ to an upper triangular matrix without using row interchanges.\\
+We keep track of the scalers in $L$.\\
+
+\bigskip
+First 2 operations $r_2-2r_1$ , $r_3+2r_1$. We keep track of the scalers of the pivot row in $L$ according to
+$r_i-cr_j$ where $c$ is the row $i$ column $j$ entry in $L$.\\
+
+Now we have:
+$$
+A=\begin{bmatrix}
+    1&5&3\\
+    0&-6&-9\\
+    0&12&9
+\end{bmatrix}\ ,\quad L=\begin{bmatrix}
+    1&0&0\\
+    2&1&0\\
+    -2&\_&1
+\end{bmatrix} 
+$$
+The last row operation is $r_3+2r_2$. Since $A$ in now upper triangular, we write $U$
+$$
+U=\begin{bmatrix}
+    1&5&3\\
+    0&-6&-9\\
+    0&0&-9
+\end{bmatrix}\ ,\quad L=\begin{bmatrix}
+    1&0&0\\
+    2&1&0\\
+    -2&-2&1
+\end{bmatrix}
+$$
+\bigskip
+Firs use forward substitution to solve $Ly=b$:
+$$
+\begin{bmatrix}
+    1&0&0\\
+    2&1&0\\
+    -2&-2&1
+\end{bmatrix}
+\begin{bmatrix} y_1\\y_2\\y_3 \end{bmatrix}
+=\begin{bmatrix} 1\\-1\\-5 \end{bmatrix}
+$$
+\begin{align*}
+y_1 &= 1\\
+2y_1 + y_2 = -1 \implies y_2 &= -1-2(1) = -3\\
+-2y_1 - 2y_2 + y_3 = -5 \implies y_3 &= -5 + 2(1) + 2(-3) = -9
+\end{align*}
+So $\mathbf{y}=\begin{bmatrix} 1\\-3\\-9 \end{bmatrix}$.
+
+\bigskip
+Then use backward substitution to solve $Ux=y$:
+$$
+\begin{bmatrix}
+    1&5&3\\
+    0&-6&-9\\
+    0&0&-9
+\end{bmatrix}
+\begin{bmatrix} x_1\\x_2\\x_3 \end{bmatrix}
+=\begin{bmatrix} 1\\-3\\-9 \end{bmatrix}
+$$
+\begin{align*}
+-9x_3 = -9 \implies x_3 &= 1\\
+-6x_2 - 9x_3 = -3 \implies x_2 &= \frac{-3+9(1)}{-6} = -1\\
+x_1 + 5x_2 + 3x_3 = 1 \implies x_1 &= 1 - 5(-1) - 3(1) = 3
+\end{align*}
+$$
+\mathbf{x}=\begin{bmatrix} 3\\-1\\1 \end{bmatrix}
+$$
+This matches the solution from question 1.
+
+\bigskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section*{Question 3: QR decomposition (20 points)}
+
+Perform QR decomposition for the matrix corresponding to the equations in \textbf{Question 1} using the Gram-Schmidt algorithm. Using the decomposition, solve for $\mathbf{x}$. Match your solution with that of \textbf{Question 1} and \textbf{Question 2}.
+
+\textbf{Solution:}
+\bigskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section*{Question 4: Gram-Schmidt process (20 points)}
+
+Show that the residual vector $\mathbf{a}_i^\perp$ is orthogonal to $\mathbf{q}_1, \mathbf{q}_2, \dots, \mathbf{q}_{i-1}$ in the Gram-Schmidt process.
+
+\textbf{Solution:}
+\bigskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section*{Question 5: Rank deficient matrices (20 points)}
+
+Compute the QR decomposition of the following two matrices using the Gram-Schmidt process and properties of the matrix $\mathbf{Q}$.
+\begin{enumerate}
+    \item[(i)] $\mathbf{A} = \begin{bmatrix}
+        1 & 1 & -1\\
+        1 & -1 & 1\\
+        -1 & -1 & 1
+    \end{bmatrix}$
+    \item[(ii)] $\mathbf{B} = \begin{bmatrix}
+        1 & -1 & 1\\
+        -1 & 1 & -1\\
+        -1 & 1 & -1
+    \end{bmatrix}$
+\end{enumerate}
+Note: the matrices $\mathbf{Q}$ and $\mathbf{R}$ must be square matrices.
+
+\textbf{Solution:}
+\bigskip
+
+\textbf{(i)}
+
+\bigskip
+
+\textbf{(ii)}
+
+\end{document}
