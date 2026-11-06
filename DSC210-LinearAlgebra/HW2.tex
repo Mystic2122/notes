@@ -75,11 +75,9 @@ $$
 We can factor $A$ into a lower triangular matrix ($L$) and an upper triagular matrix ($U$) such that $A=LU$\\
 We row reduce $A$ to an upper triangular matrix without using row interchanges.\\
 We keep track of the scalers in $L$.\\
-
 \bigskip
 First 2 operations $r_2-2r_1$ , $r_3+2r_1$. We keep track of the scalers of the pivot row in $L$ according to
 $r_i-cr_j$ where $c$ is the row $i$ column $j$ entry in $L$.\\
-
 Now we have:
 $$
 A=\begin{bmatrix}
@@ -222,7 +220,34 @@ $$
 
 Show that the residual vector $\mathbf{a}_i^\perp$ is orthogonal to $\mathbf{q}_1, \mathbf{q}_2, \dots, \mathbf{q}_{i-1}$ in the Gram-Schmidt process.
 
-\textbf{Solution:}
+\textbf{Solution:} Given a set of linearly independent vectors $a_1,a_2,...,a_n$ then for each $i$
+$$
+a_i^{\perp} = a_i-\sum_{k=1}^{i-1}(q_k^{\top}a_i)q_k \quad , \quad q_i=\frac{a_i^{\perp}}{\Vert a_i^{\perp}\Vert}
+$$
+We claim for each $i$, $q_ja_i^{\perp}=0$ for all $j=1,2,...,i-1$. i.e. all the vectors beofre column $i$ are orthogonal to column $i$.\\
+\textbf{Base case:} For $i=1$ there are no earlier $q_j's$ we need to make column $1$ orthogonal to, so $a_1^{\perp} = a_1$ and $q_1 = \frac{a_1^{\perp}}{\Vert a_1^{\perp}\Vert}$.\\
+\textbf{Induction step:} Assume $q_1,q_2,...,q_{i-1}$ are orthonormal so that
+$$
+q_j^{\top} q_k = \delta_{jk} =
+\begin{cases}
+1 & j = k \\
+0 & j \neq k
+\end{cases}
+\qquad \text{for } j, k \le i-1
+$$
+Fix any $j \in {1,2,...,i-1}$. Then
+$$
+\begin{aligned}
+q_j^\top a_i^{\perp} &= q_j^\top \left( a_i - \sum_{k=1}^{i-1} (q_k^\top a_i)\, q_k \right) \\
+&= q_j^\top a_i - \sum_{k=1}^{i-1} (q_k^\top a_i)\,(q_j^\top q_k) && \text{(linearity; } q_k^\top a_i \text{ is a scalar)} \\
+&= q_j^\top a_i - \sum_{k=1}^{i-1} (q_k^\top a_i)\,\delta_{jk} && \text{(inductive hypothesis)} \\
+&= q_j^\top a_i - q_j^\top a_i \\
+&= 0.
+\end{aligned}
+$$
+So $a_i^{\top}$ is orthogonal to every $q_j$ where $j<i$. Since the preecding columns are assumed to be linearly independent of column $i$, $a_i^{\perp} \neq 0$ since it can't be in
+the span$(q_1,q_2,...,q_{i-1})$.\\
+Orthonormality is preserved since $a_i^{\perp} \neq 0$, then $q_i = a_i^{\perp} / \|a_i^{\perp}\|$ has unit length. Dividing by a positive scalar doesn't affect orthogonality, so $q_j^\top q_i = 0$ for all $j < i. \quad \blacksquare$
 \bigskip
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
