@@ -33,9 +33,234 @@ Determine the SVD of the following matrices by hand calculation. Make sure to ex
     \textbf{Hint}: You can use the numpy library function.
 \end{enumerate}
 
-\textbf{Solution:}
-
+\textbf{Solution:}\\
+(a) $A$ is already diagonal with nonnegative entries in decreasing order, so
+$$
+\Sigma = \begin{bmatrix} 6 & 0 \\ 0 & 2 \end{bmatrix}, \qquad
+U = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}, \qquad
+V = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}.
+$$\\
+(b)\\
+$A^TA = \begin{bmatrix} 4 & 0 \\ 0 & 36 \end{bmatrix}$, so $\sigma_1 = \sqrt{36} = 6$,
+$\sigma_2 = \sqrt{4} = 2$ with $v_1 = e_2$, $v_2 = e_1$. Then $u_1 = \dfrac{Av_1}{6} = e_2$ and
+$u_2 = \dfrac{Av_2}{2} = e_1$:
+$$
+\Sigma = \begin{bmatrix} 6 & 0 \\ 0 & 2 \end{bmatrix}, \qquad
+U = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}, \qquad
+V = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}.
+$$
+(The columns are swapped so that $\sigma_1 \ge \sigma_2$.)\\
+\\
+(c)
+First compute
+$$
+A^TA = \begin{bmatrix} 0 & 0 & 0 \\ 4 & 0 & 0 \end{bmatrix}
+\begin{bmatrix} 0 & 4 \\ 0 & 0 \\ 0 & 0 \end{bmatrix}
+= \begin{bmatrix} 0 & 0 \\ 0 & 16 \end{bmatrix}.
+$$
+The eigenvalues are $16$ and $0$, so $\sigma_1 = \sqrt{16} = 4$ and $\sigma_2 = \sqrt{0} = 0$,
+with eigenvectors
+$$
+v_1 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}, \qquad
+v_2 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}.
+$$
+Then
+$$
+u_1 = \dfrac{Av_1}{\sigma_1} = \dfrac{1}{4}\begin{bmatrix} 4 \\ 0 \\ 0 \end{bmatrix}
+= \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}.
+$$
+Since $\sigma_2 = 0$, $u_2$ and $u_3$ cannot be found from $\dfrac{Av_i}{\sigma_i}$; instead we choose
+them to complete an orthonormal basis of $\mathbb{R}^3$:
+$$
+u_2 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}, \qquad
+u_3 = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}.
+$$
+Therefore
+$$
+\Sigma = \begin{bmatrix} 4 & 0 \\ 0 & 0 \\ 0 & 0 \end{bmatrix}, \qquad
+U = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}, \qquad
+V = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}.
+$$
 \bigskip
+(d)
+First compute
+$$
+A^TA = \begin{bmatrix} 1 & 2 \\ 0 & 0 \end{bmatrix}
+\begin{bmatrix} 1 & 0 \\ 2 & 0 \end{bmatrix}
+= \begin{bmatrix} 5 & 0 \\ 0 & 0 \end{bmatrix}.
+$$
+The eigenvalues are $5$ and $0$, so $\sigma_1 = \sqrt{5}$ and $\sigma_2 = \sqrt{0} = 0$,
+with eigenvectors
+$$
+v_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \qquad
+v_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}.
+$$
+Then
+$$
+u_1 = \dfrac{Av_1}{\sigma_1} = \dfrac{1}{\sqrt{5}}\begin{bmatrix} 1 \\ 2 \end{bmatrix}.
+$$
+Since $\sigma_2 = 0$, $u_2$ cannot be found from $\dfrac{Av_2}{\sigma_2}$; instead we choose
+the unit vector orthogonal to $u_1$:
+$$
+u_2 = \dfrac{1}{\sqrt{5}}\begin{bmatrix} -2 \\ 1 \end{bmatrix}.
+$$
+Therefore
+$$
+\Sigma = \begin{bmatrix} \sqrt{5} & 0 \\ 0 & 0 \end{bmatrix}, \qquad
+U = \dfrac{1}{\sqrt{5}}\begin{bmatrix} 1 & -2 \\ 2 & 1 \end{bmatrix}, \qquad
+V = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}.
+$$
+\bigskip
+(e)
+First compute
+$$
+A^TA = \begin{bmatrix} 2 & 3 \\ 2 & 1 \end{bmatrix}
+\begin{bmatrix} 2 & 2 \\ 3 & 1 \end{bmatrix}
+= \begin{bmatrix} 13 & 7 \\ 7 & 5 \end{bmatrix}.
+$$
+The characteristic polynomial is
+$$
+\det(A^TA - \lambda I) = (13 - \lambda)(5 - \lambda) - 49 = \lambda^2 - 18\lambda + 16 = 0,
+$$
+so
+$$
+\lambda = \dfrac{18 \pm \sqrt{324 - 64}}{2} = 9 \pm \sqrt{65}.
+$$
+The singular values are the square roots of the eigenvalues:
+$$
+\sigma_1 = \sqrt{9 + \sqrt{65}} = \dfrac{\sqrt{26} + \sqrt{10}}{2} \approx 4.1306, \qquad
+\sigma_2 = \sqrt{9 - \sqrt{65}} = \dfrac{\sqrt{26} - \sqrt{10}}{2} \approx 0.9684.
+$$
+For $\lambda_1 = 9 + \sqrt{65}$, the first row of $(A^TA - \lambda_1 I)v = 0$ gives
+$(4 - \sqrt{65})x + 7y = 0$, so $v_1 \propto \begin{bmatrix} 7 \\ \sqrt{65} - 4 \end{bmatrix}$,
+which has squared length $49 + (\sqrt{65} - 4)^2 = 130 - 8\sqrt{65}$. The vector $v_2$ is the
+unit vector orthogonal to $v_1$:
+$$
+v_1 = \dfrac{1}{\sqrt{130 - 8\sqrt{65}}}\begin{bmatrix} 7 \\ \sqrt{65} - 4 \end{bmatrix}
+\approx \begin{bmatrix} 0.8649 \\ 0.5019 \end{bmatrix}, \qquad
+v_2 = \dfrac{1}{\sqrt{130 - 8\sqrt{65}}}\begin{bmatrix} 4 - \sqrt{65} \\ 7 \end{bmatrix}
+\approx \begin{bmatrix} -0.5019 \\ 0.8649 \end{bmatrix}.
+$$
+To find $U$, compute
+$$
+AA^T = \begin{bmatrix} 2 & 2 \\ 3 & 1 \end{bmatrix}
+\begin{bmatrix} 2 & 3 \\ 2 & 1 \end{bmatrix}
+= \begin{bmatrix} 8 & 8 \\ 8 & 10 \end{bmatrix},
+$$
+which has the same eigenvalues. For $\lambda_1$, the first row of $(AA^T - \lambda_1 I)u = 0$ gives
+$(-1 - \sqrt{65})x + 8y = 0$, so $u_1 \propto \begin{bmatrix} 8 \\ 1 + \sqrt{65} \end{bmatrix}$,
+which has squared length $64 + (1 + \sqrt{65})^2 = 130 + 2\sqrt{65}$. The signs of $u_1$ and $u_2$
+are chosen so that $u_i = \dfrac{Av_i}{\sigma_i}$:
+$$
+u_1 = \dfrac{1}{\sqrt{130 + 2\sqrt{65}}}\begin{bmatrix} 8 \\ 1 + \sqrt{65} \end{bmatrix}
+\approx \begin{bmatrix} 0.6618 \\ 0.7497 \end{bmatrix}, \qquad
+u_2 = \dfrac{1}{\sqrt{130 + 2\sqrt{65}}}\begin{bmatrix} 1 + \sqrt{65} \\ -8 \end{bmatrix}
+\approx \begin{bmatrix} 0.7497 \\ -0.6618 \end{bmatrix}.
+$$
+Therefore
+$$
+\Sigma = \begin{bmatrix} \dfrac{\sqrt{26} + \sqrt{10}}{2} & 0 \\ 0 & \dfrac{\sqrt{26} - \sqrt{10}}{2} \end{bmatrix}
+\approx \begin{bmatrix} 4.1306 & 0 \\ 0 & 0.9684 \end{bmatrix},
+$$
+$$
+U = \dfrac{1}{\sqrt{130 + 2\sqrt{65}}}\begin{bmatrix} 8 & 1 + \sqrt{65} \\ 1 + \sqrt{65} & -8 \end{bmatrix}
+\approx \begin{bmatrix} 0.6618 & 0.7497 \\ 0.7497 & -0.6618 \end{bmatrix},
+$$
+$$
+V = \dfrac{1}{\sqrt{130 - 8\sqrt{65}}}\begin{bmatrix} 7 & 4 - \sqrt{65} \\ \sqrt{65} - 4 & 7 \end{bmatrix}
+\approx \begin{bmatrix} 0.8649 & -0.5019 \\ 0.5019 & 0.8649 \end{bmatrix}.
+$$
+(f)
+The following code computes the SVD of each matrix with \texttt{numpy.linalg.svd}, which returns
+$U$, the singular values, and $V^T$:
+\begin{verbatim}
+import numpy as np
+
+matrices = {
+    "a": np.array([[6, 0], [0, 2]], dtype=float),
+    "b": np.array([[2, 0], [0, 6]], dtype=float),
+    "c": np.array([[0, 4], [0, 0], [0, 0]], dtype=float),
+    "d": np.array([[1, 0], [2, 0]], dtype=float),
+    "e": np.array([[2, 2], [3, 1]], dtype=float),
+}
+
+for name, A in matrices.items():
+    U, s, Vt = np.linalg.svd(A)
+    Sigma = np.zeros(A.shape)
+    Sigma[:len(s), :len(s)] = np.diag(s)
+    V = Vt.T
+
+    print(f"Part ({name})")
+    print("Sigma =\n", Sigma)
+    print("U =\n", U)
+    print("V =\n", V)
+    print("U Sigma V^T equals A:", np.allclose(U @ Sigma @ Vt, A))
+    print()
+\end{verbatim}
+Output:
+\begin{verbatim}
+Part (a)
+Sigma =
+ [[6. 0.]
+ [0. 2.]]
+U =
+ [[1. 0.]
+ [0. 1.]]
+V =
+ [[1. 0.]
+ [0. 1.]]
+U Sigma V^T equals A: True
+
+Part (b)
+Sigma =
+ [[6. 0.]
+ [0. 2.]]
+U =
+ [[0. 1.]
+ [1. 0.]]
+V =
+ [[0. 1.]
+ [1. 0.]]
+U Sigma V^T equals A: True
+
+Part (c)
+Sigma =
+ [[4. 0.]
+ [0. 0.]
+ [0. 0.]]
+U =
+ [[1. 0. 0.]
+ [0. 1. 0.]
+ [0. 0. 1.]]
+V =
+ [[ 0. -1.]
+ [ 1.  0.]]
+U Sigma V^T equals A: True
+
+Part (d)
+Sigma =
+ [[2.2361 0.    ]
+ [0.     0.    ]]
+U =
+ [[-0.4472 -0.8944]
+ [-0.8944  0.4472]]
+V =
+ [[-1.  0.]
+ [-0.  1.]]
+U Sigma V^T equals A: True
+
+Part (e)
+Sigma =
+ [[4.1306 0.    ]
+ [0.     0.9684]]
+U =
+ [[-0.6618 -0.7497]
+ [-0.7497  0.6618]]
+V =
+ [[-0.8649  0.5019]
+ [-0.5019 -0.8649]]
+U Sigma V^T equals A: True
+\end{verbatim}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
